@@ -1,0 +1,72 @@
+<div class="container py-4">
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+    <div>
+      <h1 class="h3 mb-1">User Registration</h1>
+      <p class="text-secondary mb-0">Short-course training system</p>
+    </div>
+    <a routerLink="/users" class="btn btn-outline-primary">View User List</a>
+  </div>
+
+  <div *ngIf="alertMessage" class="alert" [class.alert-success]="alertType === 'success'" [class.alert-danger]="alertType === 'danger'" role="alert">
+    {{ alertMessage }}
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <strong>Register New User</strong>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label for="userEmail" class="form-label">Email</label>
+            <input id="userEmail" type="email" class="form-control" formControlName="userEmail"
+              [class.is-invalid]="submitted && f.userEmail.invalid" maxlength="85" required>
+            <div class="invalid-feedback" *ngIf="submitted && f.userEmail.errors?.['required']">Email is required.</div>
+            <div class="invalid-feedback" *ngIf="submitted && f.userEmail.errors?.['email']">Enter a valid email address.</div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="userPassword" class="form-label">Password</label>
+            <input id="userPassword" type="password" class="form-control" formControlName="userPassword"
+              [class.is-invalid]="submitted && f.userPassword.invalid" minlength="8" maxlength="15" required>
+            <div class="invalid-feedback">Password must be 8–15 characters.</div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="userFirstName" class="form-label">First Name</label>
+            <input id="userFirstName" class="form-control" formControlName="userFirstName"
+              [class.is-invalid]="submitted && f.userFirstName.invalid" maxlength="50" required>
+            <div class="invalid-feedback">First name is required.</div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="userLastName" class="form-label">Last Name</label>
+            <input id="userLastName" class="form-control" formControlName="userLastName"
+              [class.is-invalid]="submitted && f.userLastName.invalid" maxlength="50" required>
+            <div class="invalid-feedback">Last name is required.</div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="userTel" class="form-label">Telephone</label>
+            <input id="userTel" type="tel" inputmode="numeric" class="form-control" formControlName="userTel"
+              [class.is-invalid]="submitted && f.userTel.invalid" maxlength="50" required>
+            <div class="invalid-feedback">Telephone must contain numbers only.</div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="dateOfBirth" class="form-label">Date of Birth</label>
+            <input id="dateOfBirth" type="date" class="form-control" formControlName="dateOfBirth"
+              [class.is-invalid]="submitted && f.dateOfBirth.invalid" required>
+            <div class="invalid-feedback">Date must use YYYY-MM-DD and cannot be invalid.</div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+          <button type="submit" class="btn btn-primary">Register</button>
+          <button type="button" class="btn btn-secondary" (click)="form.reset(); submitted=false; alertMessage=''">Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
